@@ -1,0 +1,10 @@
+<?php if($this->isStart): ?>
+	<div class="<?php echo $this->class ?> block"<?php echo $this->cssID; ?>>
+	<?php if ($this->headline): ?>
+	<<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+	<?php endif; ?>
+	<div id="<?php echo $this->sliderId?>" style="height:<?php echo $this->sliderHeight; ?>; width:<?php echo $this->sliderWidth; ?>">
+	<?php else: ?>
+        </div>   
+    </div>
+<?php endif; ?>
