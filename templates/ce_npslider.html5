@@ -3,7 +3,7 @@
 	<?php if ($this->headline): ?>
 	<<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
 	<?php endif; ?>
-	<div id="<?php echo $this->sliderId?>" style="height:<?php echo $this->sliderHeight; ?>; width:<?php echo $this->sliderWidth; ?>">
+	<div id="<?php echo $this->sliderId?>" class="slider" style="height:<?php echo $this->sliderHeight; ?>; width:<?php echo $this->sliderWidth; ?>">
 	<?php else: ?>
         </div>   
     </div>

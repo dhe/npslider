@@ -1,7 +1,7 @@
 @charset "utf-8";
 /* npslider CSS Defaults */
 
-.ce_npslider div:first-child {
+.ce_npslider .slider > * {
 	height:inherit;
 	width:inherit;
 	margin:0;
