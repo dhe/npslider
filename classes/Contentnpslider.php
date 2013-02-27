@@ -39,7 +39,7 @@ class Contentnpslider extends \ContentElement
 	 * Generate the module
 	 */
 	protected function compile(){
-		
+		$this->import('Database');
 		// SLIDER START ELEMENT
 		if ($this->npslider_type == 'npslider_start') :
 			if (TL_MODE == 'FE'):
@@ -69,9 +69,13 @@ class Contentnpslider extends \ContentElement
 				$this->TemplateJS->loop					= $this->npslider_loop;
 				$this->TemplateJS->controls				= $this->npslider_controls;
 				$this->TemplateJS->prevText				= $this->npslider_prevText;
-				$this->TemplateJS->prevImage			= $this->npslider_prevImagePath;
+				$this->TemplateJS->prevImage			= $this->npslider_prevImagePath;				
 				$this->TemplateJS->nextText				= $this->npslider_nextText;
 				$this->TemplateJS->nextImage			= $this->npslider_nextImagePath;
+				if($this->npslider_ownNavContainer):
+				$this->TemplateJS->prevContainer		= $this->npslider_prevContainer;
+				$this->TemplateJS->nextContainer		= $this->npslider_nextContainer;
+				endif;
 				$this->TemplateJS->startingSlide		= $this->npslider_startingSlide -1;
 				$this->TemplateJS->randomStart			= $this->npslider_randomStart;
 				$this->TemplateJS->hideControlOnEnd		= $this->npslider_hideControlOnEnd;
@@ -115,7 +119,15 @@ class Contentnpslider extends \ContentElement
 		// SLIDER STOP ELEMENT
 		else :
 			if (TL_MODE == 'FE'):
-				$this->Template = new \FrontendTemplate($this->strTemplate);				
+				// GET SETTINGS OF PREVIOUS INITIALIZING NPSLIDER CTE
+				$arrInitSlider = $this->Database->prepare("SELECT id,npslider_ownNavContainer,npslider_prevContainer,npslider_nextContainer FROM tl_content WHERE pid=? AND type='npslider' AND npslider_type = 'npslider_start' AND sorting < ".$this->sorting)
+                ->limit(1)
+                ->execute($this->pid);
+
+				$this->Template = new \FrontendTemplate($this->strTemplate);
+				$this->Template->ownNavContainer		= $arrInitSlider->npslider_ownNavContainer;
+				$this->Template->prevContainer			= $arrInitSlider->npslider_prevContainer;	
+				$this->Template->nextContainer			= $arrInitSlider->npslider_nextContainer;			
 			else :
 				$this->strTemplate = 'be_wildcard';
 				$this->Template = new \BackendTemplate($this->strTemplate);

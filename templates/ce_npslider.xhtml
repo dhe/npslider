@@ -5,6 +5,10 @@
 	<?php endif; ?>
 	<div id="<?php echo $this->sliderId?>" class="slider" style="height:<?php echo $this->sliderHeight; ?>; width:<?php echo $this->sliderWidth; ?>">
 	<?php else: ?>
-        </div>   
+        </div>
+        <?php if($this->ownNavContainer):?> 
+        <?php if($this->prevContainer):?><div id="<?php echo $this->prevContainer?>"></div><?php endif; ?> 
+        <?php if($this->nextContainer):?><div id="<?php echo $this->nextContainer?>"></div><?php endif; ?> 
+        <?php endif; ?>  
     </div>
 <?php endif; ?>

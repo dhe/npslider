@@ -62,6 +62,9 @@ $GLOBALS['TL_LANG']['tl_content']['npslider_prevText']					= array('Previous tex
 $GLOBALS['TL_LANG']['tl_content']['npslider_nextText']					= array('Next text', 'Text displayed for "next" control');
 $GLOBALS['TL_LANG']['tl_content']['npslider_prevImage']					= array('Image for "prev"', 'Select image used instead for "previous"');
 $GLOBALS['TL_LANG']['tl_content']['npslider_nextImage']					= array('Image for "next"', 'Select image used instead for "next"');
+$GLOBALS['TL_LANG']['tl_content']['npslider_ownNavContainer']					= array('Set custom container for controls', 'Enables input fields for setting custom container for "prev" and "next".');
+$GLOBALS['TL_LANG']['tl_content']['npslider_prevContainer']					= array('ID for "prev"', 'Insert your custom ID for "prev" container (ex. prev-container)');
+$GLOBALS['TL_LANG']['tl_content']['npslider_nextContainer']					= array('ID for "next"', 'Insert your custom ID for "next" container (ex. next-container)');
 
 /* PAGER */
 $GLOBALS['TL_LANG']['tl_content']['npslider_pager']					= array('Show pager', 'Display a numeric pager');

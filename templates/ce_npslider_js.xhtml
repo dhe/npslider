@@ -1,15 +1,21 @@
 <script type="text/javascript">
-$(document).ready(function(){
-	$('#<?php echo $this->sliderId ?>').bxSlider({		
+jQuery(document).ready(function(){
+	jQuery('#<?php echo $this->sliderId ?>').bxSlider({		
 		controls: <?php echo ($this->controls) ? 'true' : 'false'; ?>,
 <?php if($this->controls): ?>
 		prevText: '<?php echo $this->prevText ?>',
 <?php if($this->prevImage): ?>
 		prevImage: '<?php echo $this->prevImage ?>',
 <?php endif;?>
+<?php if($this->prevContainer): ?>
+		prevSelector: '#<?php echo $this->prevContainer ?>',
+<?php endif;?>
 		nextText: '<?php echo $this->nextText ?>',
 <?php if($this->nextImage): ?>
 		nextImage: '<?php echo $this->nextImage ?>',
+<?php endif;?>
+<?php if($this->nextContainer): ?>
+		nextSelector: '#<?php echo $this->nextContainer ?>',
 <?php endif;?>
 <?php endif;?>
 <?php if($this->pager): ?>

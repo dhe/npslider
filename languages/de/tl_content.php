@@ -62,6 +62,9 @@ $GLOBALS['TL_LANG']['tl_content']['npslider_prevText']					= array('Beschriftung
 $GLOBALS['TL_LANG']['tl_content']['npslider_nextText']					= array('Beschriftung für "weiter"', 'Tragen Sie hier die Beschriftung für den "weiter" Link ein.');
 $GLOBALS['TL_LANG']['tl_content']['npslider_prevImage']					= array('Grafik für "zurück"', 'Wählen Sie hier die Grafik für den "zurück" Link aus.');
 $GLOBALS['TL_LANG']['tl_content']['npslider_nextImage']					= array('Grafik für "weiter"', 'Wählen Sie hier die Grafik für den "weiter" Link aus.');
+$GLOBALS['TL_LANG']['tl_content']['npslider_ownNavContainer']					= array('Eigener Container für Steuerungselemente vergeben', 'Aktiviert die Eingabemöglichkeit, um eigene IDs für "zurück" und "weiter" zu vergeben');
+$GLOBALS['TL_LANG']['tl_content']['npslider_prevContainer']					= array('ID für "Zurück"-Container', 'Tragen Sie hier die ID des "Zurück"-Container ein (z.B. prev-container)');
+$GLOBALS['TL_LANG']['tl_content']['npslider_nextContainer']					= array('ID für "Weiter"-Container', 'Tragen Sie hier die ID des "Weiter"-Container ein (z.B. next-container)');
 
 /* PAGER */
 $GLOBALS['TL_LANG']['tl_content']['npslider_pager']					= array('Pager einfügen', 'Einen Pager hinzufügen');
