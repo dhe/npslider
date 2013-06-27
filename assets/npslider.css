@@ -1,7 +1,24 @@
 @charset "utf-8";
 /* npslider CSS Defaults */
 
-.ce_npslider .slider > * {
+/** RESET AND LAYOUT
+===================================*/
+
+.bx-wrapper {
+	position: relative;
+	margin: 0 auto 60px;
+	padding: 0;
+	*zoom: 1;
+}
+
+.bx-wrapper img {
+	max-width: 100%;
+	display: block;
+}
+
+
+.ce_nps {overflow:visible;}
+.ce_nps .slider > * {
 	height:inherit;
 	width:inherit;
 	margin:0;

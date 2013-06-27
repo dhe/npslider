@@ -3,18 +3,23 @@
 /**
  * Contao Open Source CMS
  * 
- * Copyright (C) 2005-2012 Leo Feyer
+ * Copyright (C) 2005-2013 Leo Feyer
  * 
  * @package   npslider 
- * @author    David Hestler mail@neckarpixel.de 
- * @license   GNU/LGPL 
- * @copyright neckarpixel David Hestler 2012 
+ * @author    neckarpixel David Hestler 
+ * @license   GPL 
+ * @copyright neckarpixel David Hestler 
  */
 
-array_insert($GLOBALS['TL_CTE'], 3, array(
-	'texts' => array(
-		'npslider' => 'npslider\Contentnpslider'
-		)
-	)
+
+
+
+$GLOBALS['TL_CTE']['npslider'] = array(
+	'nps'			=> 'npslider\generateSlider',
+	//'npsGallery'	=> 'npslider\generateGallerySlides',
+	//'npsNews'		=> 'npslider\generateNewsSlides',
+	//'npsEvents'		=> 'npslider\generateEventSlides'
 );
+
+
 ?>

@@ -21,328 +21,519 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  neckarpixel David Hestler 2012 
+ * @copyright  neckarpixel David Hestler 2013
  * @author     neckarpixel David Hestler 
  * @package    npslider 
- * @license    GNU/LGPL 
+ * @license    GPL 
  */
 
 /*****************
  * Palettes
  *****************/
- 
-$GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'][] = 'npslider_type';
-$GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'][] = 'npslider_pager';
-$GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'][] = 'npslider_displaySlide';
-$GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'][] = 'npslider_ticker';
-$GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'][] = 'npslider_controls';
-$GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'][] = 'npslider_ownNavContainer';
-$GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'][] = 'npslider_callbacks';
-$GLOBALS['TL_DCA']['tl_content']['palettes']['npslider']     = '{type_legend},type,headline,npslider_type;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
 
-$GLOBALS['TL_DCA']['tl_content']['palettes']['npslider_start'] =  '{type_legend},type, headline,npslider_type;{sliderbasics_legend},npslider_width,npslider_height,npslider_loop,npslider_auto,npslider_autoHover,npslider_randomStart;{slideranimation_legend},npslider_mode,npslider_speed,npslider_pause,npslider_startingSlide;{slidercontrol_legend:hide},npslider_controls;{sliderpagination_legend:hide},npslider_pager;{sliderextended_legend:hide},npslider_displaySlide,npslider_ticker;{slidercallbacks_legend:hide},npslider_callbacks;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
+//SELECTORS 
+array_push($GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'],'npsType','npsSizeMode','npsAutoMode','npsManualMode','npsAdaptiveHeight','npsTouchEnabled','npsPager','npsEnableEasing','npsEasingMode','npsControls','npsAutoControls','npsOwnNavContainer','npsDisplaySlide','npsTicker','npsCallbacks');
 
-$GLOBALS['TL_DCA']['tl_content']['palettes']['npslider_end']			 	= '{type_legend},type,npslider_type';
+$GLOBALS['TL_DCA']['tl_content']['palettes']['nps']			= '{type_legend},type,headline,npsType;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
+$GLOBALS['TL_DCA']['tl_content']['palettes']['npsStart']	= '{type_legend},type,headline,npsType;{npsBasics_legend},npsSizeMode;{npsAnimation_legend:hide},npsAuto,npsAutoHover,npsInfiniteLoop,npsRandomStart,npsMode,npsAutoDirection,npsSpeed,npsPause,npsStartSlide,npsAutoDelay,npsEnableEasing;{npsControls_legend:hide},npsControls,npsCaptions,npsHideControlOnEnd;{npsTouch_legend:hide},npsTouchEnabled;{npsPager_legend:hide},npsPager;{npsExtended_legend:hide},npsDisplaySlide,npsTicker,npsUseCSS,npsVideo,npsPreloadImages;{npsCallbacks_legend:hide},npsCallbacks;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
+$GLOBALS['TL_DCA']['tl_content']['palettes']['npsEnd']		= '{type_legend},type,npsType;{protected_legend:hide},protected;{expert_legend:hide},guests';
 
 /*****************
  * Subpalettes
  *****************/
-$GLOBALS['TL_DCA']['tl_content']['subpalettes']['npslider_pager'] = 'npslider_pagerLocation,npslider_pagerType,npslider_pagerShortSeparator';
-$GLOBALS['TL_DCA']['tl_content']['subpalettes']['npslider_displaySlide'] = 'npslider_displaySlideQty,npslider_moveSlideQty';
-$GLOBALS['TL_DCA']['tl_content']['subpalettes']['npslider_ticker'] = 'npslider_tickerSpeed,npslider_tickerDirection,npslider_tickerHover';
-$GLOBALS['TL_DCA']['tl_content']['subpalettes']['npslider_controls'] = 'npslider_prevText,npslider_nextText,npslider_prevImage,npslider_nextImage,npslider_hideControlOnEnd,npslider_ownNavContainer';
-$GLOBALS['TL_DCA']['tl_content']['subpalettes']['npslider_ownNavContainer'] = 'npslider_prevContainer,npslider_nextContainer';
-$GLOBALS['TL_DCA']['tl_content']['subpalettes']['npslider_callbacks'] = 'npslider_onBeforeSlide,npslider_onAfterSlide,npslider_onFirstSlide,npslider_onLastSlide,npslider_onPrevSlide,npslider_onNextSlide,npslider_buildPager';
+// auto mode
+$GLOBALS['TL_DCA']['tl_content']['subpalettes']['npsSizeMode_npsAutoMode'] = 'npsSlideMargin,npsAdaptiveHeight';
+$GLOBALS['TL_DCA']['tl_content']['subpalettes']['npsAdaptiveHeight'] = 'npsAdaptiveHeightSpeed';
+
+// manual mode
+$GLOBALS['TL_DCA']['tl_content']['subpalettes']['npsSizeMode_npsManualMode'] = 'npsSlideMargin,npsWidth,npsHeight';
+
+// easing
+$GLOBALS['TL_DCA']['tl_content']['subpalettes']['npsEnableEasing'] = 'npsEasingMode,npsEasing';
+
+
+// touch
+$GLOBALS['TL_DCA']['tl_content']['subpalettes']['npsTouchEnabled'] = 'npsOneToOneTouch,npsSwipeThreshold,npsPreventDefaultSwipeX,npsPreventDefaultSwipeY';
+
+// pager
+$GLOBALS['TL_DCA']['tl_content']['subpalettes']['npsPager'] = 'npsPagerType,npsPagerShortSeparator,npsPagerSelector,npsPagerCustom';
+
+// controls
+$GLOBALS['TL_DCA']['tl_content']['subpalettes']['npsControls'] = 'npsNextText,npsPrevText,npsNextImage,npsPrevImage,npsOwnNavContainer,npsAutoControls,npsAutoControlsSelector';
+$GLOBALS['TL_DCA']['tl_content']['subpalettes']['npsAutoControls'] = 'npsAutoStart,npsAutoControlsCombine,npsStartText,npsStopText';
+$GLOBALS['TL_DCA']['tl_content']['subpalettes']['npsOwnNavContainer'] = 'npsPrevSelector,npsNextSelector';
+
+// ticker
+$GLOBALS['TL_DCA']['tl_content']['subpalettes']['npsTicker'] = 'npsTickerHover';
+
+// modify display
+  $GLOBALS['TL_DCA']['tl_content']['subpalettes']['npsDisplaySlide'] = 'npsMinSlides,npsMaxSlides,npsMoveSlides,npsSlideWidth';
+
+// callbacks
+$GLOBALS['TL_DCA']['tl_content']['subpalettes']['npsCallbacks'] = 'npsOnSliderLoad,npsOnSlideBefore,npsOnSlideAfter,npsOnSlideNext,npsOnSlidePrev,npsBuildPager';
 
 
 /*****************
  * Fields
  *****************/
-
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_type'] = array (
-	'label' 		=> &$GLOBALS['TL_LANG']['tl_content']['npslider_type'],
+ 
+// GENERAL
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsType'] = array (
+	'label' 		=> &$GLOBALS['TL_LANG']['tl_content']['npsType'],
   	'inputType' 	=> 'radio',
-  	'options' 		=> array('npslider_start', 'npslider_end'),
+  	'options' 		=> array('npsStart', 'npsEnd'),
 	'reference'		=> &$GLOBALS['TL_LANG']['tl_content'],
   	'eval' 			=> array('submitOnChange'=>true,'helpwizard'=>true, 'tl_class'=>'clr'),
 	'sql'			=> "varchar(32) NOT NULL default ''"
 );
-  
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_width'] = array(
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_width'],
+
+// DIMENSIONS
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsSizeMode'] = array (
+	'label' 		=> &$GLOBALS['TL_LANG']['tl_content']['npsSizeMode'],
+  	'inputType' 	=> 'radio',
+  	'options' 		=> array('npsAutoMode', 'npsManualMode'),
+	'reference'		=> &$GLOBALS['TL_LANG']['tl_content'],
+  	'eval' 			=> array('submitOnChange'=>true,'helpwizard'=>true, 'tl_class'=>'w50'),
+	'sql'			=> "varchar(32) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsWidth'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsWidth'],
 	'inputType'		=> 'inputUnit',
-	'options'		=> array('px'),
-	'eval'			=> array('mandatory'=>true, 'rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50', 'nospace'=>true),
+	'options'		=> array('px','%','em'),
+	'eval'			=> array('mandatory'=>true, 'rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'clr w50', 'nospace'=>true),
 	'sql'			=> "varchar(255) NOT NULL default ''"
 );
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_height'] = array(
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_height'],
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsHeight'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsHeight'],
 	'inputType'		=> 'inputUnit',
-	'options'		=> array('px'),
+	'options'		=> array('px','%','em'),
 	'eval'			=> array('mandatory'=>true, 'rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50','nospace'=>true),
 	'sql'			=> "varchar(255) NOT NULL default ''"
 );
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_autoStart'] = array(
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_autoStart'],
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsAdaptiveHeight'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsAdaptiveHeight'],
 	'inputType'		=> 'checkbox',
-	'eval'			=> array('tl_class'=>'w50'),
+	'eval'			=> array('tl_class'=>'w50 m12','submitOnChange'=>true),
 	'sql'			=> "char(1) NOT NULL default ''"
 );
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_loop'] = array(
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_loop'],
-	'inputType'		=> 'checkbox',
-	'eval'			=> array('tl_class'=>'w50'),
-	'sql'			=> "char(1) NOT NULL default ''"
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsAdaptiveHeightSpeed'] = array (
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsAdaptiveHeightSpeed'],
+	'inputType'		=> 'text',
+	'default'		=> '500',
+	'eval'			=> array('maxlength'=>4, 'mandatory'=>true, 'rgxp'=>'digit', 'nospace'=>true, 'tl_class'=>'w50'),
+	'sql'			=> "varchar(255) NOT NULL default ''"
 );
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_auto'] = array(
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_auto'],
-	'inputType'		=> 'checkbox',
-	'eval'			=> array('tl_class'=>'w50'),
-	'sql'			=> "char(1) NOT NULL default ''"
-);
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_autoHover'] = array(
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_autoHover'],
-	'inputType'		=> 'checkbox',
-	'eval'			=> array('tl_class'=>'w50'),
-	'sql'			=> "char(1) NOT NULL default ''"
-);
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_randomStart'] = array(
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_randomStart'],
-	'inputType'		=> 'checkbox',
-	'eval'			=> array('tl_class'=>'w50'),
-	'sql'			=> "char(1) NOT NULL default ''"
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsSlideMargin'] = array (
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsSlideMargin'],
+	'inputType'		=> 'text',
+	'default'		=> '0',
+	'eval'			=> array('maxlength'=>4, 'mandatory'=>true, 'rgxp'=>'digit', 'nospace'=>true, 'tl_class'=>'w50'),
+	'sql'			=> "varchar(255) NOT NULL default ''"
 );
 
-/* ANIMATION */
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_mode'] = array(
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_mode'],
+// BASICS
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsMode'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsMode'],
 	'inputType'		=> 'select',
 	'options'		=> array('horizontal', 'vertical', 'fade'),
-	'eval'			=> array('mandatory'=>false, 'tl_class'=>'w50'),
-	'reference'     => &$GLOBALS['TL_LANG']['tl_content']['npslider_mode_items'],
+	'eval'			=> array('mandatory'=>true, 'tl_class'=>'w50'),
+	'reference'     => &$GLOBALS['TL_LANG']['tl_content']['npsModeItems'],
 	'sql'			=> "varchar(255) NOT NULL default ''"
 );
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_speed'] = array (
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_speed'],
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsSpeed'] = array (
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsSpeed'],
 	'inputType'		=> 'text',
 	'default'		=> '1000',
-	'eval'			=> array('maxlength'=>4, 'mandatory'=>false, 'rgxp'=>'digit', 'nospace'=>true, 'tl_class'=>'w50'),
+	'eval'			=> array('maxlength'=>6, 'mandatory'=>true, 'rgxp'=>'digit', 'nospace'=>true, 'tl_class'=>'w50'),
 	'sql'			=> "varchar(255) NOT NULL default ''"
 );
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_pause'] = array (
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_pause'],
-	'inputType'		=> 'text',
-	'default'		=> '3000',
-	'eval'			=> array('maxlength'=>4, 'mandatory'=>false, 'rgxp'=>'digit', 'nospace'=>true, 'tl_class'=>'w50'),
-	'sql'			=> "varchar(255) NOT NULL default ''"
-);
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_startingSlide'] = array (
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_startingSlide'],
-	'inputType'		=> 'text',
-	'default'		=> '1',
-	'eval'			=> array('mandatory'=>false, 'rgxp'=>'digit', 'nospace'=>true, 'tl_class'=>'w50'),
-	'sql'			=> "varchar(255) NOT NULL default ''"
-);
-
-
-
-/* CONTROLS */
-
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_controls'] = array(
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_controls'],
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsInfiniteLoop'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsInfiniteLoop'],
 	'inputType'		=> 'checkbox',
-	'eval'			=> array('tl_class'=>'clr','submitOnChange'=>true),
+	'eval'			=> array('tl_class'=>'w50'),
 	'sql'			=> "char(1) NOT NULL default ''"
 );
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_hideControlOnEnd'] = array(
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_hideControlOnEnd'],
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsRandomStart'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsRandomStart'],
+	'inputType'		=> 'checkbox',
+	'eval'			=> array('tl_class'=>'w50'),
+	'sql'			=> "char(1) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsCaptions'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsCaptions'],
+	'inputType'		=> 'checkbox',
+	'eval'			=> array('tl_class'=>'clr m12'),
+	'sql'			=> "char(1) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsHideControlOnEnd'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsHideControlOnEnd'],
 	'inputType'		=> 'checkbox',
 	'eval'			=> array('tl_class'=>'clr'),
 	'sql'			=> "char(1) NOT NULL default ''"
 );
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_prevText'] = array (
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_prevText'],
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsStartSlide'] = array (
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsStartSlide'],
 	'inputType'		=> 'text',
-	'default'		=> 'prev',
-	'eval'			=> array('mandatory'=>false, 'tl_class'=>'w50','preserveTags'=>true),
+	'default'		=> '1',
+	'eval'			=> array('maxlength'=>3, 'mandatory'=>true, 'rgxp'=>'digit', 'nospace'=>true, 'tl_class'=>'w50'),
 	'sql'			=> "varchar(255) NOT NULL default ''"
 );
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_nextText'] = array (
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_nextText'],
-	'inputType'		=> 'text',
-	'default'		=> 'next',
-	'eval'			=> array('mandatory'=>false, 'tl_class'=>'w50','preserveTags'=>true),
+
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsPreloadImages'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsPreloadImages'],
+	'inputType'		=> 'select',
+	'options'		=> array('visible','all'),
+	'eval'			=> array('mandatory'=>true, 'tl_class'=>'w50'),
+	'reference'     => &$GLOBALS['TL_LANG']['tl_content']['npsPreloadImagesItems'],
 	'sql'			=> "varchar(255) NOT NULL default ''"
 );
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_prevImage'] = array (
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_prevImage'],
-	'inputType'		=> 'fileTree',
-	'eval'			=> array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'tl_class'=>'w50'),
+
+// EASING
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsEnableEasing'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsEnableEasing'],
+	'inputType'		=> 'checkbox',
+	'eval'			=> array('tl_class'=>'w50 m12','submitOnChange'=>true),
+	'sql'			=> "char(1) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsEasingMode'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsEasingMode'],
+	'inputType'		=> 'select',
+	'options'		=> array('css', 'js'),
+	'reference'		=> &$GLOBALS['TL_LANG']['tl_content']['npsEasingItems'],
+	'eval'			=> array('mandatory'=>true, 'tl_class'=>'clr w50','submitOnChange'=>true),
 	'sql'			=> "varchar(255) NOT NULL default ''"
 );
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_nextImage'] = array (
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_nextImage'],
-	'inputType'		=> 'fileTree',
-	'eval'			=> array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'tl_class'=>'w50'),
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsEasing'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsEasing'],
+	'inputType'		=> 'select',
+	'options_callback'		=> array('easingclass', 'getEasingOptions'),
+	'eval'			=> array('mandatory'=>false, 'tl_class'=>'w50'),
 	'sql'			=> "varchar(255) NOT NULL default ''"
 );
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_ownNavContainer'] = array(
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_ownNavContainer'],
+
+// CONTROLS
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsControls'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsControls'],
 	'inputType'		=> 'checkbox',
 	'eval'			=> array('tl_class'=>'clr','submitOnChange'=>true),
 	'sql'			=> "char(1) NOT NULL default ''"
 );
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_prevContainer'] = array (
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_prevContainer'],
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsPrevText'] = array (
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsPrevText'],
+	'inputType'		=> 'text',
+	'default'		=> 'zurück',
+	'eval'			=> array('tl_class'=>'w50'),
+	'sql'			=> "varchar(255) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsNextText'] = array (
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsNextText'],
+	'inputType'		=> 'text',
+	'default'		=> 'weiter',
+	'eval'			=> array('tl_class'=>'w50'),
+	'sql'			=> "varchar(255) NOT NULL default ''"
+);
+
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsPrevImage'] = array (
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsPrevImage'],
+	'inputType'		=> 'fileTree',
+	'eval'			=> array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'tl_class'=>'w50" style="height:auto'),
+	'sql'			=> "varchar(255) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsNextImage'] = array (
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsNextImage'],
+	'inputType'		=> 'fileTree',
+	'eval'			=> array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'tl_class'=>'w50" style="height:auto'),
+	'sql'			=> "varchar(255) NOT NULL default ''"
+);
+
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsOwnNavContainer'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsOwnNavContainer'],
+	'inputType'		=> 'checkbox',
+	'eval'			=> array('tl_class'=>'clr" style="padding-top:1px','submitOnChange'=>true),
+	'sql'			=> "char(1) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsPrevSelector'] = array (
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsPrevSelector'],
 	'inputType'		=> 'text',
 	'default'		=> 'prev-container',
-	'eval'			=> array('mandatory'=>false, 'tl_class'=>'w50','preserveTags'=>true),
+	'eval'			=> array('tl_class'=>'clr w50','mandatory'=>true),
 	'sql'			=> "varchar(255) NOT NULL default ''"
 );
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_nextContainer'] = array (
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_nextContainer'],
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsNextSelector'] = array (
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsNextSelector'],
 	'inputType'		=> 'text',
 	'default'		=> 'next-container',
-	'eval'			=> array('mandatory'=>false, 'tl_class'=>'w50','preserveTags'=>true),
+	'eval'			=> array('tl_class'=>'w50','mandatory'=>true),
 	'sql'			=> "varchar(255) NOT NULL default ''"
 );
 
-/* PAGER */
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_pager'] = array(
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_pager'],
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsAutoControls'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsAutoControls'],
 	'inputType'		=> 'checkbox',
-	'eval'			=> array('tl_class'=>'clr','submitOnChange'=>true),
+	'eval'			=> array('tl_class'=>'clr w50','submitOnChange'=>true),
 	'sql'			=> "char(1) NOT NULL default ''"
 );
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_pagerLocation'] = array (
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_pagerLocation'],
-	'inputType'		=> 'select',
-	'options' 		=> array('bottom', 'top'),
-	'eval'			=> array('tl_class'=>'w50'),
-	'reference'     => &$GLOBALS['TL_LANG']['tl_content']['npslider_pagerLocation_items'],
-	'sql'			=> "varchar(255) NOT NULL default ''"
-);
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_pagerType'] = array (
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_pagerType'],
-	'inputType'		=> 'select',
-	'options' 		=> array('full', 'short'),
-	'eval'			=> array('tl_class'=>'w50'),
-	'reference'     => &$GLOBALS['TL_LANG']['tl_content']['npslider_pagerType_items'],
-	'sql'			=> "varchar(255) NOT NULL default ''"
-);
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_pagerShortSeparator'] = array (
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_pagerShortSeparator'],
-	'inputType'		=> 'text',
-	'default'		=> '/',
-	'eval'			=> array('tl_class'=>'w50'),
-	'sql'			=> "varchar(255) NOT NULL default ''"
-);
-
-/* Display Quenty */
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_displaySlide'] = array(
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_displaySlide'],
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsAutoControlsCombine'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsAutoControlsCombine'],
 	'inputType'		=> 'checkbox',
-	'eval'			=> array('tl_class'=>'clr','submitOnChange'=>true),
+	'eval'			=> array('tl_class'=>'w50'),
 	'sql'			=> "char(1) NOT NULL default ''"
 );
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_displaySlideQty'] = array (
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_displaySlideQty'],
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsStartText'] = array (
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsStartText'],
 	'inputType'		=> 'text',
-	'default'		=> '1',
-	'eval'			=> array('tl_class'=>'w50','rgxp'=>'digit', 'nospace'=>true),
+	'default'		=> 'Start',
+	'eval'			=> array('mandatory'=>false, 'tl_class'=>'clr w50'),
 	'sql'			=> "varchar(255) NOT NULL default ''"
 );
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_moveSlideQty'] = array (
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_moveSlideQty'],
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsStopText'] = array (
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsStopText'],
 	'inputType'		=> 'text',
-	'default'		=> '1',
-	'eval'			=> array('tl_class'=>'w50','rgxp'=>'digit', 'nospace'=>true),
+	'default'		=> 'Stop',
+	'eval'			=> array('mandatory'=>false, 'tl_class'=>'w50'),
 	'sql'			=> "varchar(255) NOT NULL default ''"
 );
 
 
-/* TICKER MODE */
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_ticker'] = array(
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_ticker'],
+// TICKER
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsTicker'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsTicker'],
 	'inputType'		=> 'checkbox',
-	'eval'			=> array('tl_class'=>'clr','submitOnChange'=>true),
+	'eval'			=> array('tl_class'=>'clr w50','submitOnChange'=>true),
 	'sql'			=> "char(1) NOT NULL default ''"
 );
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_tickerSpeed'] = array (
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_tickerSpeed'],
-	'inputType'		=> 'text',
-	'default'		=> '1000',
-	'eval'			=> array('maxlength'=>4, 'mandatory'=>false, 'rgxp'=>'digit', 'nospace'=>true, 'tl_class'=>'w50'),
-	'sql'			=> "varchar(255) NOT NULL default ''"
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsTickerHover'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsTickerHover'],
+	'inputType'		=> 'checkbox',
+	'eval'			=> array('tl_class'=>'w50'),
+	'sql'			=> "char(1) NOT NULL default ''"
 );
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_tickerDirection'] = array (
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_tickerDirection'],
+
+// ANIMATIONS
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsUseCSS'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsUseCSS'],
+	'inputType'		=> 'checkbox',
+	'eval'			=> array('tl_class'=>'clr w50'),
+	'sql'			=> "char(1) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsVideo'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsVideo'],
+	'inputType'		=> 'checkbox',
+	'eval'			=> array('tl_class'=>'w50'),
+	'sql'			=> "char(1) NOT NULL default ''"
+);
+
+// AUTO
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsAuto'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsAuto'],
+	'inputType'		=> 'checkbox',
+	'eval'			=> array('tl_class'=>'w50'),
+	'sql'			=> "char(1) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsAutoHover'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsAutoHover'],
+	'inputType'		=> 'checkbox',
+	'eval'			=> array('tl_class'=>'w50'),
+	'sql'			=> "char(1) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsAutoStart'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsAutoStart'],
+	'inputType'		=> 'checkbox',
+	'eval'			=> array('tl_class'=>'clr w50'),
+	'sql'			=> "char(1) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsPause'] = array (
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsPause'],
+	'inputType'		=> 'text',
+	'default'		=> '4000',
+	'eval'			=> array('maxlength'=>4, 'mandatory'=>true, 'rgxp'=>'digit', 'nospace'=>true, 'tl_class'=>'w50'),
+	'sql'			=> "varchar(5) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsAutoHover'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsAutoHover'],
+	'inputType'		=> 'checkbox',
+	'eval'			=> array('tl_class'=>'w50'),
+	'sql'			=> "char(1) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsAutoDelay'] = array (
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsAutoDelay'],
+	'inputType'		=> 'text',
+	'default'		=> '0',
+	'eval'			=> array('maxlength'=>4, 'mandatory'=>true, 'rgxp'=>'digit', 'nospace'=>true, 'tl_class'=>'w50'),
+	'sql'			=> "varchar(5) NOT NULL default ''"
+);
+
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsAutoDirection'] = array (
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsAutoDirection'],
 	'inputType'		=> 'select',
 	'options' 		=> array('next', 'prev'),
 	'eval'			=> array('tl_class'=>'w50'),
-	'reference'     => &$GLOBALS['TL_LANG']['tl_content']['npslider_tickerDirection_items'],
+	'reference'     => &$GLOBALS['TL_LANG']['tl_content']['npsAutoDirectionItems'],
 	'sql'			=> "varchar(255) NOT NULL default ''"
 );
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_tickerHover'] = array(
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_tickerHover'],
+
+// Modify Display Slides
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsDisplaySlide'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsDisplaySlide'],
+	'inputType'		=> 'checkbox',
+	'eval'			=> array('tl_class'=>'clr','submitOnChange'=>true),
+	'sql'			=> "char(1) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsMinSlides'] = array (
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsMinSlides'],
+	'inputType'		=> 'text',
+	'default'		=> '1',
+	'eval'			=> array('tl_class'=>'w50','rgxp'=>'digit', 'nospace'=>true),
+	'sql'			=> "char(4) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsMaxSlides'] = array (
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsMaxSlides'],
+	'inputType'		=> 'text',
+	'default'		=> '1',
+	'eval'			=> array('tl_class'=>'w50','rgxp'=>'digit', 'nospace'=>true,'mandatory'=>true),
+	'sql'			=> "char(4) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsMoveSlides'] = array (
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsMoveSlides'],
+	'inputType'		=> 'text',
+	'eval'			=> array('tl_class'=>'w50','rgxp'=>'digit', 'nospace'=>true,'mandatory'=>true),
+	'sql'			=> "char(4) NOT NULL default ''"
+);
+
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsSlideWidth'] = array (
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsSlideWidth'],
+	'inputType'		=> 'text',
+	'default'		=> '0',
+	'eval'			=> array('tl_class'=>'w50','rgxp'=>'digit', 'nospace'=>true,'mandatory'=>true),
+	'sql'			=> "char(4) NOT NULL default ''"
+);
+
+// TOUCH
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsTouchEnabled'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsTouchEnabled'],
+	'inputType'		=> 'checkbox',
+	'eval'			=> array('tl_class'=>'clr','submitOnChange'=>true),
+	'sql'			=> "char(1) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsOneToOneTouch'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsOneToOneTouch'],
+	'inputType'		=> 'checkbox',
+	'eval'			=> array('tl_class'=>'clr w50 m12'),
+	'sql'			=> "char(1) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsSwipeThreshold'] = array (
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsSwipeThreshold'],
+	'inputType'		=> 'text',
+	'default'		=> '50',
+	'eval'			=> array('maxlength'=>4, 'mandatory'=>true, 'rgxp'=>'digit', 'nospace'=>true, 'tl_class'=>'w50'),
+	'sql'			=> "varchar(255) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsPreventDefaultSwipeX'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsPreventDefaultSwipeX'],
+	'inputType'		=> 'checkbox',
+	'eval'			=> array('tl_class'=>'clr w50'),
+	'sql'			=> "char(1) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsPreventDefaultSwipeY'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsPreventDefaultSwipeY'],
 	'inputType'		=> 'checkbox',
 	'eval'			=> array('tl_class'=>'w50'),
 	'sql'			=> "char(1) NOT NULL default ''"
 );
-/* CALLBACKS */
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_callbacks'] = array(
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_callbacks'],
+
+// PAGER
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsPager'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsPager'],
 	'inputType'		=> 'checkbox',
 	'eval'			=> array('tl_class'=>'clr','submitOnChange'=>true),
 	'sql'			=> "char(1) NOT NULL default ''"
 );
 
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_onBeforeSlide'] = array(
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_onBeforeSlide'],
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsPagerType'] = array (
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsPagerType'],
+
+	'inputType'		=> 'select',
+	'options' 		=> array('full', 'short'),
+	'eval'			=> array('tl_class'=>'w50'),
+	'reference'     => &$GLOBALS['TL_LANG']['tl_content']['npsPagerTypeItems'],
+	'sql'			=> "varchar(255) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsPagerShortSeparator'] = array (
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsPagerShortSeparator'],
+	'inputType'		=> 'text',
+	'default'		=> '/',
+	'eval'			=> array('tl_class'=>'w50', 'mandatory'=>true),
+	'sql'			=> "varchar(255) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsPagerSelector'] = array (
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsPagerSelector'],
+	'inputType'		=> 'text',
+	'eval'			=> array('tl_class'=>'w50','preserveTags' =>true),
+	'sql'			=> "varchar(255) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsPagerCustom'] = array (
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsPagerCustom'],
+	'inputType'		=> 'text',
+	'explanation'	=> 'npsPagerCustom',
+	'eval'			=> array('tl_class'=>'w50', 'helpwizard' => true,'preserveTags' =>true),
+	'sql'			=> "varchar(255) NOT NULL default ''"
+);
+
+
+// CALLBACKS
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsCallbacks'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsCallbacks'],
+	'inputType'		=> 'checkbox',
+	'eval'			=> array('tl_class'=>'clr','submitOnChange'=>true),
+	'sql'			=> "char(1) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsOnSliderLoad'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsOnSliderLoad'],
 	'inputType'		=> 'textarea',
 	'explanation'	=> 'callbacks',
 	'eval'			=> array('style'=>'height:100px;','helpwizard' => true,'mandatory'=>false,'allowHtml'=>true,'preserveTags' =>true),
 	'sql'			=> "mediumtext NULL"
 );
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_onAfterSlide'] = array(
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_onAfterSlide'],
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsOnSlideBefore'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsOnSlideBefore'],
 	'inputType'		=> 'textarea',
 	'explanation'	=> 'callbacks',
 	'eval'			=> array('style'=>'height:100px;','helpwizard' => true,'mandatory'=>false,'allowHtml'=>true,'preserveTags' =>true),
 	'sql'			=> "mediumtext NULL"
 );
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_onFirstSlide'] = array(
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_onFirstSlide'],
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsOnSlideAfter'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsOnSlideAfter'],
 	'inputType'		=> 'textarea',
 	'explanation'	=> 'callbacks',
 	'eval'			=> array('style'=>'height:100px;','helpwizard' => true,'mandatory'=>false,'allowHtml'=>true,'preserveTags' =>true),
 	'sql'			=> "mediumtext NULL"
 );
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_onLastSlide'] = array(
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_onLastSlide'],
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsOnSlideNext'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsOnSlideNext'],
 	'inputType'		=> 'textarea',
 	'explanation'	=> 'callbacks',
 	'eval'			=> array('style'=>'height:100px;','helpwizard' => true,'mandatory'=>false,'allowHtml'=>true,'preserveTags' =>true),
 	'sql'			=> "mediumtext NULL"
 );
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_onPrevSlide'] = array(
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_onPrevSlide'],
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsOnSlidePrev'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsOnSlidePrev'],
 	'inputType'		=> 'textarea',
 	'explanation'	=> 'callbacks',
 	'eval'			=> array('style'=>'height:100px;','helpwizard' => true,'mandatory'=>false,'allowHtml'=>true,'preserveTags' =>true),
 	'sql'			=> "mediumtext NULL"
 );
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_onNextSlide'] = array(
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_onNextSlide'],
+$GLOBALS['TL_DCA']['tl_content']['fields']['npsBuildPager'] = array(
+	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npsBuildPager'],
 	'inputType'		=> 'textarea',
 	'explanation'	=> 'callbacks',
 	'eval'			=> array('style'=>'height:100px;','helpwizard' => true,'mandatory'=>false,'allowHtml'=>true,'preserveTags' =>true),
 	'sql'			=> "mediumtext NULL"
 );
-$GLOBALS['TL_DCA']['tl_content']['fields']['npslider_buildPager'] = array(
-	'label'			=> &$GLOBALS['TL_LANG']['tl_content']['npslider_buildPager'],
-	'inputType'		=> 'textarea',
-	'explanation'	=> 'callbacks',
-	'eval'			=> array('style'=>'height:100px;','helpwizard' => true,'mandatory'=>false,'allowHtml'=>true,'preserveTags' =>true),
-	'sql'			=> "mediumtext NULL"
-);
+
+class easingclass {
+	
+	public function getEasingOptions(DataContainer $dc){
+		return $GLOBALS['TL_LANG']['tl_content']['npsEasingModeItems'][$dc->activeRecord->npsEasingMode];
+	}
+
+}

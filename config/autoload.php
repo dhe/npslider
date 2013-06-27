@@ -26,7 +26,10 @@ ClassLoader::addNamespaces(array
 ClassLoader::addClasses(array
 (
 	// Classes
-	'neckarpixel\npslider\Contentnpslider' => 'system/modules/npslider/classes/Contentnpslider.php',
+	'neckarpixel\npslider\generateSlider'			=> 'system/modules/npslider/elements/generateSlider.php',
+	'neckarpixel\npslider\generateGallerySlides'	=> 'system/modules/npslider/elements/generateGallerySlides.php',
+	'neckarpixel\npslider\generateNewsSlides'		=> 'system/modules/npslider/elements/generateNewsSlides.php',
+	'neckarpixel\npslider\generateEventSlides'		=> 'system/modules/npslider/elements/generateEventSlides.php',
 ));
 
 
@@ -36,5 +39,5 @@ ClassLoader::addClasses(array
 TemplateLoader::addFiles(array
 (
 	'ce_npslider'    => 'system/modules/npslider/templates',
-	'ce_npslider_js' => 'system/modules/npslider/templates',
+	'ce_npslider_js'    => 'system/modules/npslider/templates',
 ));

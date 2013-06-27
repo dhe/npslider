@@ -1,60 +1,58 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
-
-/**
- * Contao Open Source CMS
- * Copyright (C) 2005-2012 Leo Feyer
- *
- * Formerly known as TYPOlight Open Source CMS.
- *
- * This program is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation, either
- * version 3 of the License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public
- * License along with this program. If not, please visit the Free
- * Software Foundation website at <http://www.gnu.org/licenses/>.
- *
- * PHP version 5
- * @copyright  Leo Feyer 2005-2012
- * @author     Leo Feyer <http://www.contao.org>
- * @package    Language
- * @license    LGPL
- * @filesource
- */
-
-
-/**
+<?php /**
  * Callbacks
  */
 $GLOBALS['TL_LANG']['XPL']['callbacks'] = array
 (
-	array('onBeforeSlide', 'function(currentSlideNumber, totalSlideQty, currentSlideHtmlObject){<br>
-  	&nbsp;&nbsp;&nbsp;// perform actions here<br>
+	array('onSliderLoad', 'function(currentIndex){  } // your code here<br>
+	arguments:<br>
+	currentIndex: element index of the current slide<br>
 	}'),
-	array('onAfterSlide', 'function(currentSlideNumber, totalSlideQty, currentSlideHtmlObject){<br>
- 	&nbsp;&nbsp;&nbsp;// perform actions here<br>
+	array('onSlideBefore', 'function($slideElement, oldIndex, newIndex){ } // your code here <br>
+	arguments:<br>
+	$slideElement: jQuery element of the destination element<br>
+	oldIndex: element index of the previous slide (before the transition)<br>
+ 	newIndex: element index of the destination slide (after the transition)<br>
 	}'),
-	array('onFirstSlide', 'function(currentSlideNumber, totalSlideQty, currentSlideHtmlObject){<br>
- 	&nbsp;&nbsp;&nbsp;// perform actions here<br>
+	array('onLastSlide', 'function($slideElement, oldIndex, newIndex){ } // your code here <br>
+	arguments:<br>
+	$slideElement: jQuery element of the destination element<br>
+	oldIndex: element index of the previous slide (before the transition)<br>
+ 	newIndex: element index of the destination slide (after the transition)<br>
 	}'),
-	array('onLastSlide', 'function(currentSlideNumber, totalSlideQty, currentSlideHtmlObject){<br>
- 	&nbsp;&nbsp;&nbsp;// perform actions here<br>
+	array('onSlideAfter', 'function($slideElement, oldIndex, newIndex){ } // your code here <br>
+	arguments:<br>
+	$slideElement: jQuery element of the destination element<br>
+	oldIndex: element index of the previous slide (before the transition)<br>
+ 	newIndex: element index of the destination slide (after the transition)<br>
 	}'),
-	array('onPrevSlide', 'function(currentSlideNumber, totalSlideQty, currentSlideHtmlObject){<br>
- 	&nbsp;&nbsp;&nbsp;// perform actions here<br>
+	array('onSlideNext', 'function($slideElement, oldIndex, newIndex){ } // your code here <br>
+	arguments:<br>
+	$slideElement: jQuery element of the destination element<br>
+	oldIndex: element index of the previous slide (before the transition)<br>
+ 	newIndex: element index of the destination slide (after the transition)<br>
 	}'),
-	array('onNextSlide', 'function(currentSlideNumber, totalSlideQty, currentSlideHtmlObject){<br>
- 	&nbsp;&nbsp;&nbsp;// perform actions here<br>
+	array('onSlidePrev', 'function($slideElement, oldIndex, newIndex){ } // your code here <br>
+	arguments:<br>
+	$slideElement: jQuery element of the destination element<br>
+	oldIndex: element index of the previous slide (before the transition)<br>
+ 	newIndex: element index of the destination slide (after the transition)<br>
 	}'),
-	array('buildPager', 'function(slideIndex, slideHtmlObject){<br>
-	&nbsp;&nbsp;&nbsp;// return output;<br>
-	}')
+	array('buildPager', 'function(slideIndex){ } // your code here')
 );
 
+// PAGER
+$GLOBALS['TL_LANG']['XPL']['npsPagerCustom'] = array
+(
+	array('Use your own markup for a pager', 'HTML for the pager must be like this:<br><code>&lt;div id="myPager"&gt;<br>
+&nbsp;&nbsp;&lt;a data-slide-index="0" href=""&gt;&lt;img src="image_1.jpg" /&gt;&lt;/a&gt;<br>
+&nbsp;&nbsp;&lt;a data-slide-index="0" href=""&gt;&lt;img src="image_2.jpg" /&gt;&lt;/a&gt;<br>
+&nbsp;&nbsp;&lt;a data-slide-index="0" href=""&gt;&lt;img src="image_3.jpg" /&gt;&lt;/a&gt;<br>
+&lt;/div&gt;</code>')
+);
+
+// EASING
+$GLOBALS['TL_LANG']['XPL']['easing'] = array
+(
+	array('Easing', 'Take care to deactivate CSS-Transitions if easing effect is "linear" or "swing"')
+);
 ?>
